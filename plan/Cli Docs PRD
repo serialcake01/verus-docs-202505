@@ -1,0 +1,200 @@
+**Product Requirements Document (PRD)**
+
+**Project Title:** Verus CLI Documentation Suite: Empowering Developers and Users
+
+**Owner:** Verus MCP Team
+**Created:** 2025-05-02
+**Last Updated:** 2025-05-16
+
+---
+
+## 🎯 1. Purpose & Vision
+
+**Purpose:** To develop a comprehensive, accessible, and engaging documentation suite for the Verus Command Line Interface (CLI). This suite aims to be the definitive resource for understanding and utilizing the full power of the Verus CLI.
+
+**Vision:** Create documentation that not only serves as a precise technical reference but also **teaches** core Verus concepts through the lens of the CLI and **inspires** users and developers by clearly showcasing what's possible with the Verus platform. We aim to lower the barrier to entry and empower a wider range of users to interact confidently with Verus.
+
+---
+
+## 👥 2. Target Audience
+
+This documentation targets several key groups:
+
+*   **New Verus Users:** Individuals new to Verus seeking to understand basic operations, wallet management, and staking/mining via the CLI.
+*   **Experienced Verus Users:** Users familiar with Verus concepts looking for detailed command references, advanced usage patterns, and specific task-based guides.
+*   **Developers & Integrators:** Technical users building applications or services on top of Verus, requiring precise command syntax, API interactions (via CLI), and understanding of underlying mechanisms.
+*   **AI Agents & Tooling:** Automated systems (like LLMs, Cursor, Claude) needing structured, reliable data for querying CLI capabilities, syntax, and usage examples (e.g., for RAG or tool use).
+
+---
+
+## ✅ 3. Goals
+
+1.  **Complete Coverage:** Document every command available in the Verus CLI (`verus help`).
+2.  **Conceptual Clarity:** Provide introductory sections explaining core Verus concepts relevant to CLI usage (e.g., VerusID, PBaaS, DeFi primitives, notarization, mining/staking).
+3.  **Accuracy & Precision:** Ensure all command descriptions, syntax, arguments, and examples are technically correct and validated.
+4.  **Consistency:** Maintain a uniform structure, style, and terminology across all documentation components.
+5.  **Usability:** Design clear navigation and search capabilities for both human readers and automated tools.
+6.  **Multiple Formats:** Deliver documentation in formats suitable for a web portal, developer reference, and AI consumption.
+7.  **Inspiration & Enablement:** Include practical, task-oriented tutorials and advanced examples that showcase the power and utility of the Verus CLI.
+
+---
+
+## 📚 4. Deliverables
+
+| Deliverable                               | Format         | Target Audience/Usage                                           | Key Features                                                                                             |
+| :---------------------------------------- | :------------- | :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| **Enhanced CLI Command Index**            | JSON           | Internal parsing, RAG systems, AI Agents, MCP Server            | Typed, structured data per command; includes description, syntax, args, examples, notes, category, related. |
+| **Command Reference Pages**               | Markdown (.md) | Web docs (Dev Portal), GitHub Wiki, Human Developers & Users  | Detailed explanation per command following the structure in Section 6.                                 |
+| **Conceptual Overview Guides**            | Markdown (.md) | All Users (especially Newcomers), Developers                    | Explain key Verus subsystems (Identity, PBaaS, DeFi, etc.) and how CLI interacts with them.              |
+| **Task-Based Tutorials**                  | Markdown (.md) | New & Experienced Users, Developers                             | Step-by-step guides for common workflows (e.g., creating VerusID, launching currency, bridging assets). |
+| **Searchable Developer Portal Structure** | Markdown       | All Human Users                                                 | Organized `docs/` folder with clear navigation (`index.md`, category pages), optimized for web rendering.  |
+| **AI-Optimized Data Format (Optional)**   | JSONL / MDX    | AI Agents, RAG systems                                          | Chunked, embeddable format derived from Markdown/JSON for efficient AI processing.                      |
+
+---
+
+## 🏛️ 5. Information Architecture & Navigation
+
+The documentation will be organized logically for ease of access:
+
+1.  **Home/Landing Page:** Introduction to the Verus CLI, purpose of the docs, quick links.
+2.  **Getting Started:** Installation, basic configuration, first commands.
+3.  **Core Concepts:** Dedicated pages explaining fundamental Verus topics (VerusID, Currencies, PBaaS, Staking/Mining, DeFi, etc.) with links to relevant CLI commands.
+4.  **Command Reference:**
+    *   Grouped by **category** (e.g., Identity, Wallet, Blockchain, Currency, Network).
+    *   Each command gets its own page (`docs/commands/<command_name>.md`).
+    *   Alphabetical index page.
+5.  **Tutorials:** Task-based walkthroughs for common user journeys.
+6.  **Advanced Topics:** Guides on more complex scenarios, scripting, security best practices.
+7.  **Search:** Robust search functionality integrated into the web portal.
+
+Cross-linking between concepts, commands, and tutorials will be essential.
+
+---
+
+## ⚙️ 6. Structure Per Command (Markdown & JSON)
+
+Each command's documentation (both in Markdown reference pages and the JSON index) will adhere to this structure:
+
+1.  **Command Name:** `commandname`
+2.  **Summary:** Concise one-sentence description of the command's purpose.
+3.  **Category:** Primary functional area (e.g., `Identity`, `Wallet`, `Currency`, `Blockchain`, `Network`, `Mining`, `Crosschain`, `Util`). Can have multiple.
+4.  **Description:** Expanded explanation of what the command does, its context, and *why* a user might use it.
+5.  **Usage:**
+    *   Canonical syntax representation.
+    *   Clear distinction between required and optional arguments.
+    *   Use standard conventions (e.g., `[]` for optional, `<>` for placeholders).
+6.  **Arguments:**
+    *   Detailed list of all parameters.
+    *   For each argument:
+        *   `Name`: Parameter name.
+        *   `Type`: Data type (string, numeric, boolean, JSON object, array, etc.).
+        *   `Required`: Yes/No.
+        *   `Default`: Default value, if applicable.
+        *   `Description`: Clear explanation of the argument's purpose and constraints.
+7.  **Options (if applicable):** Detailed list of flags or options.
+8.  **Result:**
+    *   Description of the expected output.
+    *   For complex outputs (JSON objects/arrays), provide a sample structure with type annotations and explanations for each field.
+9.  **Examples:**
+    *   **Minimum 2-4 practical examples.**
+    *   Show common use cases.
+    *   Include examples with different arguments/options.
+    *   Provide both the command and the expected *type* or a *snippet* of the output.
+    *   Include `curl` examples for JSON-RPC interaction where relevant.
+10. **Notes:**
+    *   Important warnings (e.g., requires unlocked wallet, irreversible actions, potential costs).
+    *   Common pitfalls or gotchas.
+    *   Prerequisites (e.g., requires `-txindex`).
+    *   Behavior differences across network types (mainnet, testnet, regtest).
+11. **Related Commands:** Links to other relevant commands (e.g., `registeridentity` links to `registernamecommitment`).
+
+---
+
+## 🎨 7. Style & Tone
+
+*   **Tone:** Clear, concise, accurate, helpful, and empowering. Avoid jargon where possible or explain it clearly upon first use.
+*   **Voice:** Active voice preferred.
+*   **Code Formatting:** Consistent formatting for commands, code snippets, JSON, and output examples using Markdown code blocks with language identifiers.
+*   **Terminology:** Use consistent terminology aligned with Verus community standards. Create a glossary if needed.
+
+---
+
+## 🚧 8. Scope
+
+**Initial Scope:**
+
+*   Document all commands listed in `verus help` and present in `verus_help_outputs/`.
+*   Parse and structure information from existing `verus_help_outputs/` files.
+*   Augment help text with richer descriptions, examples, and notes based on `wiki_verus_io.md` and other provided docs.
+*   Establish the core `docs/` structure and JSON index.
+*   Create initial conceptual overviews and essential tutorials.
+
+**Out of Scope (for initial version):**
+
+*   GUI (Verus Desktop) documentation.
+*   Documentation for third-party tools or libraries interacting with the CLI.
+*   API documentation beyond the CLI interface itself.
+*   Translation into other languages.
+
+---
+
+## 🧩 9. Dependencies & Inputs
+
+*   **Primary Source:** `verus_help_outputs/` directory containing raw help text for each command.
+*   **Secondary Source:** `wiki_verus_io.md` for existing structure, categories, and potentially richer examples/notes.
+*   **Contextual Source:** `_docs.verus.io.markdown_results` and `_monkins1010.markdown_results` for broader Verus concepts and potential tutorial ideas.
+*   **Tooling:** Access to a running `verusd` node (preferably mainnet and testnet) for validating commands and output.
+*   **Schema:** Working MCP schema for testing JSON index integration.
+*   **Platform:** Target platform for hosting the web documentation (e.g., GitHub Pages, custom site).
+
+---
+
+## 🧭 10. Milestone Breakdown (Iterative Approach)
+
+This project will be executed iteratively, focusing on delivering value in stages:
+
+1.  **Foundation (Tickets 1-3):**
+    *   Extract command list.
+    *   Define robust categories.
+    *   Create initial `raw_index.json` mapping commands to help text and categories.
+    *   Set up `docs/` structure.
+2.  **Core Content - Batch 1 (Tickets 4-9 for ~20 commands):**
+    *   Enrich JSON index (usage, args, examples, notes, related) for the first batch of critical commands (e.g., core wallet, identity, basic blockchain commands).
+    *   Create corresponding Markdown reference pages for this batch.
+3.  **Conceptual Guides & Getting Started (Connects to Tickets 11-13):**
+    *   Write initial "Getting Started" guide.
+    *   Draft 1-2 core concept overviews (e.g., VerusID introduction).
+    *   Draft 1-2 essential tutorials (e.g., Creating a VerusID).
+4.  **Core Content - Iteration (Repeat Tickets 4-9 for subsequent batches):**
+    *   Continue enriching JSON and creating Markdown pages for remaining commands in manageable batches (15-25 commands per iteration). Prioritize by category/importance.
+5.  **Navigation & Polish (Ticket 10):**
+    *   Build comprehensive `index.md` files for navigation (main index, category indices).
+    *   Review and refine cross-linking.
+    *   Ensure consistent formatting and style.
+6.  **Advanced Content & AI Format (Tickets 11-16):**
+    *   Complete remaining tutorials.
+    *   Add advanced topic guides.
+    *   Generate optional AI-optimized formats (JSONL/MDX).
+7.  **Review & Launch:** Final review, deployment to the target web platform.
+
+---
+
+## 📌 11. Success Criteria
+
+*   **100% Command Coverage:** All CLI commands have dedicated, accurate reference pages following the defined structure.
+*   **Conceptual Understanding:** Core Verus concepts are clearly explained in dedicated guides, enhancing user understanding.
+*   **Task Completion:** Users can successfully complete common tasks using the tutorials.
+*   **High-Quality Examples:** Examples are practical, varied, and significantly aid understanding.
+*   **Navigability:** The documentation portal is easy to navigate and search.
+*   **AI Readability:** The JSON index is well-structured and usable by AI tools for lookups and RAG.
+*   **Developer Satisfaction:** Developers find the documentation accurate, comprehensive, and easy to use for integration.
+*   **Maintainability:** The structure and formats facilitate easy updates and community contributions.
+
+---
+
+## 🚀 12. Next Steps
+
+1.  Confirm PRD revisions.
+2.  Set up the basic `docs/` directory structure.
+3.  Begin Milestone 1: Foundation - Execute Tickets 1-3.
+4.  Plan the command batches for Milestone 2 and subsequent iterations, prioritizing core functionality.

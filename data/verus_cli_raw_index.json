@@ -1,0 +1,775 @@
+[
+  {
+    "name": "zcsamplejoinsplit",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/zcsamplejoinsplit.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "zcrawreceive",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/zcrawreceive.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "zcrawkeygen",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/zcrawkeygen.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "zcrawjoinsplit",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/zcrawjoinsplit.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "zcbenchmark",
+    "categories": ["Util"],
+    "rawHelpText": "_verus_help_outputs/zcbenchmark.txt",
+    "status": "Enriched",
+    "summary": "Runs a benchmark of the selected type a specified number of times, returning the running times of each sample.",
+    "description": "This command is used to perform benchmarking for a specified type and sample count, providing the running times for each sample.",
+    "usage": "zcbenchmark benchmarktype samplecount",
+    "arguments": [
+      {"name": "benchmarktype", "type": "string", "required": true, "description": "The type of benchmark to run."},
+      {"name": "samplecount", "type": "numeric", "required": true, "description": "The number of times to run the benchmark."}
+    ],
+    "result": "Returns an array of objects, each containing the \"runningtime\" for a sample.",
+    "examples": [],
+    "notes": [],
+    "related": []
+  },
+  {
+    "name": "decryptdata",
+    "categories": ["Util"],
+    "rawHelpText": "_verus_help_outputs/decryptdata.txt",
+    "status": "Enriched",
+    "summary": "Decrypts a VDXF data descriptor, typically encrypted to a z-address.",
+    "description": "This command decrypts a VDXF data descriptor using wallet keys included in the descriptor. If a viewing key is present, it attempts to decrypt any nested encryptions. If no decryption is possible, it returns an error.",
+    "usage": "decryptdata '{\n                  \"datadescriptor\": {},\n                  \"evk\":\"Optional Sapling extended full viewing key\",\n                  \"ivk\":\"Optional hex incoming viewing key\",\n                  \"txid\":\"hex\",\n                  \"retrieve\": bool\n              }",
+    "arguments": [
+      {"name": "datadescriptor", "type": "object", "required": true, "description": "Encrypted data descriptor to decrypt."},
+      {"name": "evk", "type": "evk", "required": false, "description": "Sapling extended full viewing key for decoding."},
+      {"name": "ivk", "type": "ivk", "required": false, "description": "Sapling incoming viewing key for decoding."},
+      {"name": "txid", "type": "txid", "required": false, "description": "Transaction ID if data is from a transaction."},
+      {"name": "retrieve", "type": "bool", "required": false, "description": "Defaults to false. If true, retrieves and decrypts data from its reference."}
+    ],
+    "result": "Not explicitly stated, but it returns the decrypted data if successful.",
+    "examples": [
+      "verus signdata '{\"address\":\"Verus Coin Foundation.vrsc@\", \"createmmr\":true, \"data\":[{\"message\":\"hello world\", \"encrypttoaddress\":\"Sapling address\"}]}',",
+      "verus decryptdata '{encrypteddatadescriptor}'",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"signdata\", \"params\": ['{\"address\":\"Verus Coin Foundation.vrsc@\", \"createmmr\":true, \"data\":[{\"message\":\"hello world\", \"encrypttoaddress\":\"Sapling address\"}]}'] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [],
+    "related": []
+  },
+  {
+    "name": "convertpassphrase",
+    "categories": ["Util"],
+    "rawHelpText": "_verus_help_outputs/convertpassphrase.txt",
+    "status": "Enriched",
+    "summary": "Converts a Verus Desktop, Agama, Verus Agama, or Verus Mobile passphrase to a private key and WIF for import with importprivkey.",
+    "description": "This command converts a wallet passphrase into a private key and WIF, allowing the user to import it using the importprivkey command.",
+    "usage": "convertpassphrase \"walletpassphrase\"",
+    "arguments": [
+      {"name": "walletpassphrase", "type": "string", "required": true, "description": "The wallet passphrase."}
+    ],
+    "result": "Returns an object with: \n- \"walletpassphrase\": The wallet passphrase entered.\n- \"address\": The Verus address corresponding to the passphrase.\n- \"pubkey\": The hex value of the raw public key.\n- \"privkey\": The hex value of the raw private key.\n- \"wif\": The private key in WIF format for use with importprivkey.",
+    "examples": [
+      "verus convertpassphrase \"walletpassphrase\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"convertpassphrase\", \"params\": [\"walletpassphrase\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [],
+    "related": [
+      {"command": "importprivkey", "description": "Import a private key into the wallet."}
+    ]
+  },
+  {
+    "name": "addmultisigaddress",
+    "categories": ["Util", "Wallet"],
+    "rawHelpText": "_verus_help_outputs/addmultisigaddress.txt",
+    "status": "Enriched",
+    "summary": "Adds a multisignature address to the wallet, requiring a specified number of signatures.",
+    "description": "This command creates a multisignature address that requires a specified number of signatures from a list of VRSC addresses or hex-encoded public keys. The account parameter is deprecated.",
+    "usage": "addmultisigaddress nrequired [\"key\",...] ( \"account\" )",
+    "arguments": [
+      {"name": "nrequired", "type": "numeric", "required": true, "description": "The number of required signatures."},
+      {"name": "keysobject", "type": "string", "required": true, "description": "A JSON array of VRSC addresses or hex-encoded public keys."},
+      {"name": "account", "type": "string", "required": false, "description": "DEPRECATED. Must be set to the empty string \"\"."}
+    ],
+    "result": "Returns a VRSC address associated with the keys.",
+    "examples": [
+      "verus addmultisigaddress 2 \"[\\\"RD6GgnrMpPaTSMn8vai6yiGA7mN4QGPV\\\",\\\"RD6GgnrMpPaTSMn8vai6yiGA7mN4QGPV\\\"]\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"addmultisigaddress\", \"params\": [2, \"[\\\"RD6GgnrMpPaTSMn8vai6yiGA7mN4QGPV\\\",\\\"RD6GgnrMpPaTSMn8vai6yiGA7mN4QGPV\\\"]\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [],
+    "related": []
+  },
+  {
+    "name": "z_validateaddress",
+    "categories": ["Wallet", "Util"],
+    "rawHelpText": "_verus_help_outputs/z_validateaddress.txt",
+    "status": "Enriched",
+    "summary": "Returns information about the given z-address.",
+    "description": "This command validates a z-address and provides information about its validity, type, ownership, and associated keys.",
+    "usage": "z_validateaddress \"zaddr\"",
+    "arguments": [
+      {"name": "zaddr", "type": "string", "required": true, "description": "The z-address to validate."}
+    ],
+    "result": "Returns an object with: \n- \"isvalid\": (boolean) If the address is valid.\n- \"address\": (string) The validated z-address.\n- \"type\": (string) The type of address (\"sprout\" or \"sapling\").\n- \"ismine\": (boolean) If the address belongs to the user.\n- \"payingkey\": (string) [sprout] The hex value of the paying key.\n- \"transmissionkey\": (string) [sprout] The hex value of the transmission key.\n- \"diversifier\": (string) [sapling] The hex value of the diversifier.\n- \"diversifiedtransmissionkey\": (string) [sapling] The hex value of the diversified transmission key.",
+    "examples": [
+      "verus z_validateaddress \"zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"z_validateaddress\", \"params\": [\"zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [],
+    "related": []
+  },
+  {
+    "name": "validateaddress",
+    "categories": ["Wallet", "Util"],
+    "rawHelpText": "_verus_help_outputs/validateaddress.txt",
+    "status": "Enriched",
+    "summary": "Returns information about the given transparent address.",
+    "description": "This command validates a transparent address and provides information about its validity, ownership, and associated keys.",
+    "usage": "validateaddress \"address\"",
+    "arguments": [
+      {"name": "address", "type": "string", "required": true, "description": "The transparent address to validate."}
+    ],
+    "result": "Returns an object with: \n- \"isvalid\": (boolean) If the address is valid.\n- \"address\": (string) The Verus or PBaaS address to be validated.\n- \"scriptPubKey\": (string) The hex-encoded scriptPubKey generated by the address.\n- \"ismine\": (boolean) If the address belongs to the user.\n- \"isscript\": (boolean) If the key is a script.\n- \"pubkey\": (string) The hex value of the raw public key.\n- \"iscompressed\": (boolean) If the address is compressed.\n- \"account\": (string) DEPRECATED. The account associated with the address.",
+    "examples": [
+      "verus validateaddress \"RTZMZHDFSTFQst8XmX2dR4DaH87cEUs3gC\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"validateaddress\", \"params\": [\"RTZMZHDFSTFQst8XmX2dR4DaH87cEUs3gC\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [],
+    "related": []
+  },
+  {
+    "name": "reconsiderblock",
+    "categories": ["Blockchain"],
+    "rawHelpText": "_verus_help_outputs/reconsiderblock.txt",
+    "status": "Enriched",
+    "summary": "Removes invalidity status from a block and its descendants, reconsidering them for activation. Used to undo the effects of invalidateblock.",
+    "description": "`reconsiderblock` removes the invalid status from a specified block and all its descendants, allowing them to be reconsidered for activation in the blockchain. This command is essential for chain reorganization, troubleshooting, and recovery from accidental or incorrect block invalidation.",
+    "usage": "verus reconsiderblock \"hash\"",
+    "arguments": [
+      {"name": "hash", "type": "string", "required": true, "description": "The hash of the block to reconsider."}
+    ],
+    "result": "No direct result; the block and its descendants are reconsidered for activation.",
+    "examples": [
+      "verus reconsiderblock \"blockhash\""
+    ],
+    "notes": [
+      "Used to undo the effects of invalidateblock.",
+      "Can trigger a chain reorganization if the reconsidered block is valid."
+    ],
+    "related": [
+      {"command": "invalidateblock", "description": "Mark a block as invalid."}
+    ]
+  },
+  {
+    "name": "invalidateblock",
+    "categories": ["Blockchain"],
+    "rawHelpText": "_verus_help_outputs/invalidateblock.txt",
+    "status": "Enriched",
+    "summary": "Permanently marks a block as invalid, as if it violated a consensus rule. Used for chain reorganization and troubleshooting.",
+    "description": "`invalidateblock` marks a specified block as invalid, causing it and its descendants to be excluded from the active chain. This command is essential for chain reorganization, troubleshooting, and simulating consensus rule violations.",
+    "usage": "verus invalidateblock \"hash\"",
+    "arguments": [
+      {"name": "hash", "type": "string", "required": true, "description": "The hash of the block to mark as invalid."}
+    ],
+    "result": "No direct result; the block and its descendants are marked as invalid.",
+    "examples": [
+      "verus invalidateblock \"blockhash\""
+    ],
+    "notes": [
+      "Used to simulate consensus rule violations or troubleshoot chain issues.",
+      "Can trigger a chain reorganization.",
+      "Use reconsiderblock to undo this action."
+    ],
+    "related": [
+      {"command": "reconsiderblock", "description": "Remove invalidity status from a block."}
+    ]
+  },
+  {
+    "name": "estimatepriority",
+    "categories": ["Blockchain", "Util"],
+    "rawHelpText": "_verus_help_outputs/estimatepriority.txt",
+    "status": "Enriched",
+    "summary": "Estimates the approximate priority a zero-fee transaction needs to begin confirmation within a specified number of blocks.",
+    "description": "`estimatepriority` provides an estimate of the transaction priority required for a zero-fee transaction to be confirmed within a given number of blocks. This command is useful for fee estimation, transaction planning, and network analysis.",
+    "usage": "verus estimatepriority nblocks",
+    "arguments": [
+      {"name": "nblocks", "type": "number", "required": true, "description": "Number of blocks for confirmation target."}
+    ],
+    "result": "Returns the estimated priority (numeric). Returns -1.0 if not enough data is available.",
+    "examples": [
+      "verus estimatepriority 6"
+    ],
+    "notes": [
+      "Returns -1.0 if not enough transactions and blocks have been observed to make an estimate.",
+      "Useful for fee estimation and transaction planning."
+    ],
+    "related": [
+      {"command": "estimatefee", "description": "Estimate the fee per kilobyte for confirmation."}
+    ]
+  },
+  {
+    "name": "estimatefee",
+    "categories": ["Blockchain", "Util"],
+    "rawHelpText": "_verus_help_outputs/estimatefee.txt",
+    "status": "Enriched",
+    "summary": "Estimates the approximate fee per kilobyte needed for a transaction to begin confirmation within a specified number of blocks.",
+    "description": "`estimatefee` provides an estimate of the fee per kilobyte required for a transaction to be confirmed within a given number of blocks. This command is useful for fee estimation, transaction planning, and network analysis.",
+    "usage": "verus estimatefee nblocks",
+    "arguments": [
+      {"name": "nblocks", "type": "number", "required": true, "description": "Number of blocks for confirmation target."}
+    ],
+    "result": "Returns the estimated fee per kilobyte (numeric). Returns the minimum fee if not enough data is available.",
+    "examples": [
+      "verus estimatefee 6"
+    ],
+    "notes": [
+      "Returns the minimum fee if not enough transactions and blocks have been observed to make an estimate.",
+      "Useful for fee estimation and transaction planning."
+    ],
+    "related": [
+      {"command": "estimatepriority", "description": "Estimate the priority for zero-fee confirmation."}
+    ]
+  },
+  {
+    "name": "createmultisig",
+    "categories": ["Util"],
+    "rawHelpText": "_verus_help_outputs/createmultisig.txt",
+    "status": "Enriched",
+    "summary": "Creates a multi-signature address with a specified number of required signatures from a set of keys.",
+    "description": "This command generates a multi-signature address requiring a specified number of signatures from a list of Komodo addresses or hex-encoded public keys. It returns the address and the redeem script.",
+    "usage": "createmultisig nrequired [\"key\",...]",
+    "arguments": [
+      {"name": "nrequired", "type": "numeric", "required": true, "description": "The number of required signatures."},
+      {"name": "keys", "type": "string", "required": true, "description": "A JSON array of Komodo addresses or hex-encoded public keys."}
+    ],
+    "result": "Returns a JSON object with: \n- \"address\": The new multisig address.\n- \"redeemScript\": The hex-encoded redemption script.",
+    "examples": [
+      "verus createmultisig 2 \"[\\\"RTZMZHDFSTFQst8XmX2dR4DaH87cEUs3gC\\\",\\\"RNKiEBduBru6Siv1cZRVhp4fkZNyPska6z\\\"]\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"createmultisig\", \"params\": [2, \"[\\\"RTZMZHDFSTFQst8XmX2dR4DaH87cEUs3gC\\\",\\\"RNKiEBduBru6Siv1cZRVhp4fkZNyPska6z\\\"]\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [],
+    "related": []
+  },
+  {
+    "name": "signrawtransaction",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/signrawtransaction.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "sendrawtransaction",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/sendrawtransaction.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "getrawtransaction",
+    "categories": ["Raw Transactions", "Blockchain"],
+    "rawHelpText": "_verus_help_outputs/getrawtransaction.txt",
+    "status": "Enriched",
+    "summary": "Returns the raw transaction data for a given transaction ID, with optional verbose decoding. Supports advanced auditing, troubleshooting, and protocol analysis.",
+    "description": "`getrawtransaction` retrieves the raw transaction data for a specified transaction ID. By default, it returns the serialized, hex-encoded transaction. If `verbose` is set, it returns a detailed JSON object with all transaction fields, including transparent and shielded join-split data. This command is essential for advanced auditing, troubleshooting, and protocol analysis.",
+    "usage": "verus getrawtransaction \"txid\" [verbose]",
+    "arguments": [
+      {"name": "txid", "type": "string", "required": true, "description": "The transaction ID."},
+      {"name": "verbose", "type": "number", "required": false, "description": "0 for hex string, non-zero for JSON object (default: 0)."}
+    ],
+    "result": "If `verbose` is 0: Returns the serialized, hex-encoded transaction data.\nIf `verbose` is non-zero: Returns a detailed JSON object with transaction fields.",
+    "examples": [
+      "verus getrawtransaction \"mytxid\"",
+      "verus getrawtransaction \"mytxid\" 1"
+    ],
+    "notes": [
+      "By default, only works for mempool transactions or those with unspent outputs unless `-txindex` is enabled.",
+      "Use for advanced auditing, troubleshooting, and protocol analysis."
+    ],
+    "related": [
+      {"command": "decoderawtransaction", "description": "Decode a raw transaction hex string."},
+      {"command": "gettransaction", "description": "Get detailed information about an in-wallet transaction."}
+    ]
+  },
+  {
+    "name": "fundrawtransaction",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/fundrawtransaction.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "decodescript",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/decodescript.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "decoderawtransaction",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/decoderawtransaction.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "createrawtransaction",
+    "categories": ["Raw Transactions"],
+    "rawHelpText": "_verus_help_outputs/createrawtransaction.txt",
+    "status": "Raw"
+  },
+  {
+    "name": "setban",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/setban.txt",
+    "status": "Enriched",
+    "summary": "Attempts to add or remove an IP/Subnet from the banned list.",
+    "description": "The `setban` command is used to manage the banned list of IPs or subnets. It allows you to add or remove entries from this list, effectively controlling which nodes are allowed to connect to your network.",
+    "usage": "verus setban \"ip(/netmask)\" \"add|remove\" (bantime) (absolute)",
+    "arguments": [
+      {"name": "ip(/netmask)", "type": "string", "required": true, "description": "The IP/Subnet with an optional netmask (default is /32 = single IP)."},
+      {"name": "command", "type": "string", "required": true, "description": "'add' to add an IP/Subnet to the list, 'remove' to remove an IP/Subnet from the list."},
+      {"name": "bantime", "type": "numeric", "required": false, "description": "Time in seconds for how long the IP is banned (0 or empty means using the default time of 24h)."},
+      {"name": "absolute", "type": "boolean", "required": false, "description": "If set, the bantime must be an absolute timestamp in seconds since epoch."}
+    ],
+    "result": "This command does not return a value but modifies the banned list.",
+    "examples": [
+      "verus setban \"192.168.0.6\" \"add\" 86400",
+      "verus setban \"192.168.0.0/24\" \"add\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"setban\", \"params\": [\"192.168.0.6\", \"add\", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "The default ban time is 24 hours, which can be overridden by the `-bantime` startup argument.",
+      "Use this command to prevent unwanted nodes from connecting to your network."
+    ],
+    "related": [
+      {"command": "listbanned", "description": "List all banned IPs/Subnets."},
+      {"command": "clearbanned", "description": "Clear all banned IPs."},
+      {"command": "getpeerinfo", "description": "Returns data about each connected network node."}
+    ]
+  },
+  {
+    "name": "ping",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/ping.txt",
+    "status": "Enriched",
+    "summary": "Requests that a ping be sent to all other nodes to measure ping time.",
+    "description": "The `ping` command is used to send a ping request to all connected nodes. This helps measure the ping time, which is reported in the `pingtime` and `pingwait` fields of the `getpeerinfo` command. The ping command is processed in the queue with all other commands, so it measures the processing backlog as well as the network ping.",
+    "usage": "verus ping",
+    "arguments": [],
+    "result": "The command does not return a direct result but updates the `pingtime` and `pingwait` fields in the `getpeerinfo` output.",
+    "examples": [
+      "verus ping",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"ping\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "The ping command helps in assessing the network latency and processing backlog.",
+      "It is useful for diagnosing network performance issues."
+    ],
+    "related": [
+      {"command": "getpeerinfo", "description": "Returns data about each connected network node."},
+      {"command": "getnetworkinfo", "description": "Returns an object containing various state info regarding P2P networking."}
+    ]
+  },
+  {
+    "name": "listbanned",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/listbanned.txt",
+    "status": "Enriched",
+    "summary": "List all banned IPs/Subnets.",
+    "description": "The `listbanned` command provides a list of all IPs and subnets that are currently banned. This is useful for monitoring and managing the banned list to ensure that only the intended nodes are restricted from connecting to your network.",
+    "usage": "verus listbanned",
+    "arguments": [],
+    "result": "The command returns a list of all banned IPs and subnets.",
+    "examples": [
+      "verus listbanned",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"listbanned\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "Use this command to review the current banned list and verify that it contains the correct entries."
+    ],
+    "related": [
+      {"command": "setban", "description": "Attempts to add or remove an IP/Subnet from the banned list."},
+      {"command": "clearbanned", "description": "Clear all banned IPs."}
+    ]
+  },
+  {
+    "name": "getpeerinfo",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/getpeerinfo.txt",
+    "status": "Enriched",
+    "summary": "Returns data about each connected network node as a JSON array of objects.",
+    "description": "The `getpeerinfo` command provides detailed information about each peer connected to the network. It includes data such as the peer's IP address, services offered, connection status, and various metrics related to data transmission and synchronization.",
+    "usage": "verus getpeerinfo",
+    "arguments": [],
+    "result": "The command returns a JSON array of objects, each representing a connected peer with fields such as `id`, `addr`, `services`, `tls_established`, `lastsend`, `lastrecv`, `bytessent`, `bytesrecv`, `conntime`, `pingtime`, `version`, `subver`, `inbound`, `startingheight`, `banscore`, `synced_headers`, `synced_blocks`, and `inflight`.",
+    "examples": [
+      "verus getpeerinfo",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getpeerinfo\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "This command is useful for monitoring the status and performance of network connections.",
+      "It can help identify issues with specific peers or network configurations."
+    ],
+    "related": [
+      {"command": "getnetworkinfo", "description": "Returns an object containing various state info regarding P2P networking."},
+      {"command": "getconnectioncount", "description": "Returns the number of connections to other nodes."},
+      {"command": "addnode", "description": "Attempts to add or remove a node from the addnode list, or try a connection to a node once."},
+      {"command": "disconnectnode", "description": "Immediately disconnects from the specified node."}
+    ]
+  },
+  {
+    "name": "getnetworkinfo",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/getnetworkinfo.txt",
+    "status": "Enriched",
+    "summary": "Returns an object containing various state info regarding P2P networking.",
+    "description": "The `getnetworkinfo` command provides detailed information about the current state of P2P networking. It includes data such as the server version, protocol version, services offered, number of connections, and network-specific details like reachability and proxy settings.",
+    "usage": "verus getnetworkinfo",
+    "arguments": [],
+    "result": "The command returns an object with fields such as `version`, `subversion`, `protocolversion`, `localservices`, `timeoffset`, `connections`, `networks`, `relayfee`, `localaddresses`, and `warnings`.",
+    "examples": [
+      "verus getnetworkinfo",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getnetworkinfo\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "This command is useful for obtaining a comprehensive overview of the network state and configuration.",
+      "It can help diagnose network issues and verify network settings."
+    ],
+    "related": [
+      {"command": "getpeerinfo", "description": "Returns data about each connected network node."},
+      {"command": "getconnectioncount", "description": "Returns the number of connections to other nodes."},
+      {"command": "addnode", "description": "Attempts to add or remove a node from the addnode list, or try a connection to a node once."}
+    ]
+  },
+  {
+    "name": "getnettotals",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/getnettotals.txt",
+    "status": "Enriched",
+    "summary": "Returns information about network traffic, including bytes in, bytes out, and current time.",
+    "description": "The `getnettotals` command provides statistics about the network traffic. It includes the total bytes received, total bytes sent, and the current CPU time. This information is useful for monitoring network usage and performance.",
+    "usage": "verus getnettotals",
+    "arguments": [],
+    "result": "The command returns an object with fields such as `totalbytesrecv`, `totalbytessent`, and `timemillis`.",
+    "examples": [
+      "verus getnettotals",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getnettotals\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "This command is useful for tracking network traffic and diagnosing network performance issues."
+    ],
+    "related": [
+      {"command": "getnetworkinfo", "description": "Returns an object containing various state info regarding P2P networking."},
+      {"command": "getpeerinfo", "description": "Returns data about each connected network node."}
+    ]
+  },
+  {
+    "name": "getconnectioncount",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/getconnectioncount.txt",
+    "status": "Enriched",
+    "summary": "Returns the number of connections to other nodes.",
+    "description": "The `getconnectioncount` command provides the total number of connections to other nodes in the network. This is useful for understanding the network's connectivity and ensuring that the node is properly connected to the network.",
+    "usage": "verus getconnectioncount",
+    "arguments": [],
+    "result": "The command returns a numeric value representing the connection count.",
+    "examples": [
+      "verus getconnectioncount",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getconnectioncount\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "This command is useful for monitoring the node's connectivity status."
+    ],
+    "related": [
+      {"command": "getnetworkinfo", "description": "Returns an object containing various state info regarding P2P networking."},
+      {"command": "getpeerinfo", "description": "Returns data about each connected network node."}
+    ]
+  },
+  {
+    "name": "getaddednodeinfo",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/getaddednodeinfo.txt",
+    "status": "Enriched",
+    "summary": "Returns information about the given added node, or all added nodes.",
+    "description": "The `getaddednodeinfo` command provides information about added nodes. It can return details for a specific node or all nodes, including connection status and address information. This is useful for managing and monitoring manually added nodes in the network.",
+    "usage": "verus getaddednodeinfo dns ( \"node\" )",
+    "arguments": [
+      {"name": "dns", "type": "boolean", "required": true, "description": "If false, only a list of added nodes will be provided; if true, connected information will also be available."},
+      {"name": "node", "type": "string", "required": false, "description": "If provided, return information about this specific node; otherwise, all nodes are returned."}
+    ],
+    "result": "The command returns an array of objects, each representing an added node with fields such as `addednode`, `connected`, and `addresses`.",
+    "examples": [
+      "verus getaddednodeinfo true",
+      "verus getaddednodeinfo true \"192.168.0.201\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getaddednodeinfo\", \"params\": [true, \"192.168.0.201\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "This command is useful for verifying the status and details of manually added nodes."
+    ],
+    "related": [
+      {"command": "addnode", "description": "Attempts to add or remove a node from the addnode list, or try a connection to a node once."},
+      {"command": "getnetworkinfo", "description": "Returns an object containing various state info regarding P2P networking."}
+    ]
+  },
+  {
+    "name": "disconnectnode",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/disconnectnode.txt",
+    "status": "Enriched",
+    "summary": "Immediately disconnects from the specified node.",
+    "description": "The `disconnectnode` command is used to immediately terminate the connection with a specified node. This can be useful for managing network connections and ensuring that only desired nodes remain connected.",
+    "usage": "verus disconnectnode \"node\"",
+    "arguments": [
+      {"name": "node", "type": "string", "required": true, "description": "The node to disconnect from (see `getpeerinfo` for nodes)."}
+    ],
+    "result": "This command does not return a value but disconnects the specified node.",
+    "examples": [
+      "verus disconnectnode \"192.168.0.6:8233\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"disconnectnode\", \"params\": [\"192.168.0.6:8233\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "Use this command to manage and control network connections effectively."
+    ],
+    "related": [
+      {"command": "getpeerinfo", "description": "Returns data about each connected network node."},
+      {"command": "addnode", "description": "Attempts to add or remove a node from the addnode list, or try a connection to a node once."}
+    ]
+  },
+  {
+    "name": "clearbanned",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/clearbanned.txt",
+    "status": "Enriched",
+    "summary": "Clear all banned IPs.",
+    "description": "The `clearbanned` command removes all entries from the banned list. This is useful for resetting the banned list and allowing previously banned nodes to reconnect.",
+    "usage": "verus clearbanned",
+    "arguments": [],
+    "result": "This command does not return a value but clears the banned list.",
+    "examples": [
+      "verus clearbanned",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"clearbanned\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "Use this command to reset the banned list and allow all previously banned nodes to reconnect."
+    ],
+    "related": [
+      {"command": "setban", "description": "Attempts to add or remove an IP/Subnet from the banned list."},
+      {"command": "listbanned", "description": "List all banned IPs/Subnets."}
+    ]
+  },
+  {
+    "name": "addnode",
+    "categories": ["Network"],
+    "rawHelpText": "_verus_help_outputs/addnode.txt",
+    "status": "Enriched",
+    "summary": "Attempts to add or remove a node from the addnode list, or try a connection to a node once.",
+    "description": "The `addnode` command is used to manage the list of manually added nodes. It allows you to add a node to the list, remove a node from the list, or attempt a one-time connection to a node. This is useful for controlling network connections and testing connectivity.",
+    "usage": "verus addnode \"node\" \"add|remove|onetry\"",
+    "arguments": [
+      {"name": "node", "type": "string", "required": true, "description": "The node to add, remove, or connect to once (see `getpeerinfo` for nodes)."},
+      {"name": "command", "type": "string", "required": true, "description": "'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once."}
+    ],
+    "result": "This command does not return a value but modifies the addnode list or attempts a connection.",
+    "examples": [
+      "verus addnode \"192.168.0.6:8233\" \"onetry\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"addnode\", \"params\": [\"192.168.0.6:8233\", \"onetry\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "Use this command to manage and test network connections effectively."
+    ],
+    "related": [
+      {"command": "getaddednodeinfo", "description": "Returns information about the given added node, or all added nodes."},
+      {"command": "disconnectnode", "description": "Immediately disconnects from the specified node."}
+    ]
+  },
+  {
+    "name": "submitmergedblock",
+    "categories": ["Mining & Staking"],
+    "rawHelpText": "_verus_help_outputs/submitmergedblock.txt",
+    "status": "Enriched",
+    "summary": "Attempts to submit one or more new blocks to one or more networks, including Verus and PBaaS merge mined chains.",
+    "description": "This command submits a valid block for the current chain, along with embedded headers of other PBaaS merge mined chains. If the hash for this header meets the targets of other chains added with `addmergedblock`, the API submits those blocks to specified URL endpoints using an RPC `submitmergedblock` request.",
+    "usage": "verus submitmergedblock \"hexdata\"",
+    "arguments": [
+      {"name": "hexdata", "type": "string", "required": true, "description": "The hex-encoded block data to submit."}
+    ],
+    "result": "Returns an object indicating whether the block was accepted or rejected, and details of PBaaS submissions.",
+    "examples": [
+      "verus submitmergedblock \"mydata\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"submitmergedblock\", \"params\": [\"mydata\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "The command is used for submitting blocks to both the Verus chain and PBaaS chains.",
+      "It requires valid block data encoded in hex format."
+    ],
+    "related": [
+      {"command": "addmergedblock", "description": "Add a merged block to the list of blocks to be submitted."}
+    ]
+  },
+  {
+    "name": "jumblr_secret",
+    "categories": ["Jumblr"],
+    "rawHelpText": "_verus_help_outputs/jumblr_secret.txt",
+    "status": "Enriched",
+    "summary": "Sets a secret address for Jumblr operations.",
+    "description": "The `jumblr_secret` command allows users to specify a secret address that will be used in Jumblr operations. This is essential for maintaining privacy and ensuring that transactions are processed correctly.",
+    "usage": "jumblr_secret \"secretaddress\"",
+    "arguments": [
+      {"name": "secretaddress", "type": "string", "required": true, "description": "The secret address for Jumblr use."}
+    ],
+    "result": "No direct output. The command sets the secret address for Jumblr operations.",
+    "examples": [
+      "jumblr_secret \"mySecretAddress\""
+    ],
+    "notes": [
+      "Ensure the secret address is valid and secure."
+    ],
+    "related": [
+      {"command": "jumblr_resume", "description": "Resumes Jumblr operations."},
+      {"command": "jumblr_pause", "description": "Pauses Jumblr operations."},
+      {"command": "jumblr_deposit", "description": "Deposits funds for Jumblr operations."}
+    ]
+  },
+  {
+    "name": "jumblr_resume",
+    "categories": ["Jumblr"],
+    "rawHelpText": "_verus_help_outputs/jumblr_resume.txt",
+    "status": "Enriched",
+    "summary": "Resumes Jumblr operations that have been paused.",
+    "description": "The `jumblr_resume` command is used to continue Jumblr operations that were previously paused. It is useful for managing the flow of transactions and ensuring that operations can be resumed without starting over.",
+    "usage": "jumblr_resume",
+    "arguments": [],
+    "result": "No direct output. The command resumes Jumblr operations.",
+    "examples": [
+      "jumblr_resume"
+    ],
+    "notes": [
+      "Ensure that Jumblr operations were previously paused before using this command."
+    ],
+    "related": [
+      {"command": "jumblr_pause", "description": "Pauses Jumblr operations."},
+      {"command": "jumblr_secret", "description": "Sets a secret address for Jumblr operations."},
+      {"command": "jumblr_deposit", "description": "Deposits funds for Jumblr operations."}
+    ]
+  },
+  {
+    "name": "jumblr_pause",
+    "categories": ["Jumblr"],
+    "rawHelpText": "_verus_help_outputs/jumblr_pause.txt",
+    "status": "Enriched",
+    "summary": "Pauses ongoing Jumblr operations.",
+    "description": "The `jumblr_pause` command is used to temporarily halt Jumblr operations. It is useful for managing the flow of transactions and ensuring that operations can be paused and resumed as needed.",
+    "usage": "jumblr_pause",
+    "arguments": [],
+    "result": "No direct output. The command pauses Jumblr operations.",
+    "examples": [
+      "jumblr_pause"
+    ],
+    "notes": [
+      "Use this command to pause operations safely without losing progress."
+    ],
+    "related": [
+      {"command": "jumblr_resume", "description": "Resumes Jumblr operations."},
+      {"command": "jumblr_secret", "description": "Sets a secret address for Jumblr operations."},
+      {"command": "jumblr_deposit", "description": "Deposits funds for Jumblr operations."}
+    ]
+  },
+  {
+    "name": "jumblr_deposit",
+    "categories": ["Jumblr"],
+    "rawHelpText": "_verus_help_outputs/jumblr_deposit.txt",
+    "status": "Enriched",
+    "summary": "Deposits funds into a specified address for Jumblr operations.",
+    "description": "The `jumblr_deposit` command allows users to deposit funds into a designated address for use in Jumblr operations. It is essential for initiating transactions and ensuring that funds are available for processing.",
+    "usage": "jumblr_deposit \"depositaddress\"",
+    "arguments": [
+      {"name": "depositaddress", "type": "string", "required": true, "description": "The address to deposit funds into."}
+    ],
+    "result": "No direct output. The command deposits funds into the specified address for Jumblr operations.",
+    "examples": [
+      "jumblr_deposit \"myDepositAddress\""
+    ],
+    "notes": [
+      "Ensure the deposit address is valid and secure."
+    ],
+    "related": [
+      {"command": "jumblr_resume", "description": "Resumes Jumblr operations."},
+      {"command": "jumblr_pause", "description": "Pauses Jumblr operations."},
+      {"command": "jumblr_secret", "description": "Sets a secret address for Jumblr operations."}
+    ]
+  },
+  {
+    "name": "getvdxfid",
+    "categories": ["VDXF"],
+    "rawHelpText": "_verus_help_outputs/getvdxfid.txt",
+    "status": "Enriched",
+    "summary": "Returns the VDXF key of a given URI string.",
+    "description": "This command processes a URI string to return its VDXF key. It can combine the URI with additional parameters like a VDXF key, a 256-bit hash, or an integer index number to produce a unique identifier.",
+    "usage": "verus getvdxfid \"vdxfuri\" '{\"vdxfkey\":\"i-address or vdxfkey\", \"uint256\":\"hexstr\", \"indexnum\":0}'",
+    "arguments": [
+      {"name": "vdxfuri", "type": "string", "required": true, "description": "The URI string to be processed."},
+      {"name": "vdxfkey", "type": "string", "required": false, "description": "An optional VDXF key or i-address to combine via hash."},
+      {"name": "uint256", "type": "hexstr", "required": false, "description": "An optional 256-bit hash to combine with the URI hash."},
+      {"name": "indexnum", "type": "int", "required": false, "description": "An optional integer to combine with the URI hash."}
+    ],
+    "result": "Returns an object containing the base58check and hex VDXF ID values, along with any combined parameters.",
+    "examples": [
+      "verus getvdxfid \"system.currency.export\"",
+      "verus getvdxfid \"idname::userdefinedgroup.subgroup.publishedname\"",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getvdxfid\", \"params\": [\"idname::userdefinedgroup.subgroup.publishedname\"] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "The command processes the URI by converting it from hex, hashing the data, and returning the result.",
+      "Additional parameters can be combined with the URI to create a unique identifier."
+    ],
+    "related": []
+  },
+  {
+    "name": "getdeprecationinfo",
+    "categories": ["Control"],
+    "rawHelpText": "_verus_help_outputs/getdeprecationinfo.txt",
+    "status": "Enriched",
+    "summary": "Returns an object containing the current version and deprecation block height, applicable only on the mainnet.",
+    "description": "This command provides information about the current server version and the block height at which this version will deprecate and shut down. It is useful for ensuring that the software is up-to-date and aware of upcoming deprecations.",
+    "usage": "verus getdeprecationinfo",
+    "arguments": [],
+    "result": "Returns an object with the server version, subversion string, and deprecation block height.",
+    "examples": [
+      "verus getdeprecationinfo",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getdeprecationinfo\", \"params\": [] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "This command is only applicable on the mainnet.",
+      "It helps in planning upgrades by providing the deprecation block height."
+    ],
+    "related": []
+  },
+  {
+    "name": "getcurrencybalance",
+    "categories": ["Currency"],
+    "rawHelpText": "_verus_help_outputs/getcurrencybalance.txt",
+    "status": "Enriched",
+    "summary": "Returns the balance in all currencies of a specified address belonging to the node's wallet.",
+    "description": "This command retrieves the balance for a given address, which can be a transparent or private address. It supports wildcards and can limit the currencies shown. Note that if the wallet only has an incoming viewing key, the balance may be larger than the actual balance due to undetected spends.",
+    "usage": "verus getcurrencybalance \"address\" ( minconf ) ( friendlynames ) ( includeshared )",
+    "arguments": [
+      {"name": "address", "type": "string", "required": true, "description": "The selected address, which can include wildcards."},
+      {"name": "minconf", "type": "numeric", "required": false, "description": "Only include transactions confirmed at least this many times (default=1)."},
+      {"name": "friendlynames", "type": "boolean", "required": false, "description": "Use friendly names instead of i-addresses (default=true)."},
+      {"name": "includeshared", "type": "boolean", "required": false, "description": "Include outputs that can also be spent by others (default=false)."}
+    ],
+    "result": "Returns the total amount in VRSC received for the specified address.",
+    "examples": [
+      "verus getcurrencybalance \"myaddress\"",
+      "verus getcurrencybalance \"myaddress\" 5",
+      "curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"getcurrencybalance\", \"params\": [\"myaddress\", 5] }' -H 'content-type: text/plain;' http://127.0.0.1:27486/"
+    ],
+    "notes": [
+      "Caution is advised if the wallet has only an incoming viewing key, as the balance may be overstated.",
+      "The command supports both transparent and private addresses."
+    ],
+    "related": []
+  }
+] 

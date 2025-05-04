@@ -1,0 +1,109 @@
+**📋 Work Tickets: Verus CLI Documentation Project (Revised)**
+
+*This document outlines the tasks required to implement the Verus CLI Documentation Suite as defined in the PRD. It serves as both a plan and a progress tracker.*
+
+---
+
+## 📚 Phase 1: Foundation & Setup (Corresponds to PRD Milestone 1)
+
+*Goal: Establish the basic structure and extract initial data.*
+
+**[x] Ticket 1.1: Extract all CLI commands**
+    *   Parse command names from `verus help` output and/or `verus_help_outputs/`.
+    *   Store the raw list of command names.
+    *   Output: `data/command_list.json` (or similar temporary file).
+
+**[x] Ticket 1.2: Define & Apply Categories**
+    *   Finalize the list of command categories based on PRD and `wiki_verus_io.md` (e.g., `Identity`, `Wallet`, `Currency`, `Blockchain`, `Network`, `Mining`, `Crosschain`, `Util`, `Marketplace`, `VDXF`, `Control`).
+    *   Map each command extracted in Ticket 1.1 to one or more relevant categories.
+    *   Output: `data/command_categories.json` (mapping command names to categories).
+
+**[x] Ticket 1.3: Create Initial Raw JSON Index**
+    *   Combine outputs from 1.1 and 1.2.
+    *   For each command, create a base JSON object containing:
+        *   `name`: Command name.
+        *   `categories`: Array of category strings.
+        *   `rawHelpText`: Link to or content of the corresponding file in `verus_help_outputs/`.
+        *   `status`: Initial status (e.g., "Raw").
+    *   Output: `data/verus_cli_raw_index.json`.
+
+**[x] Ticket 1.4: Set up Documentation Directory Structure**
+    *   Create the main `docs/` directory.
+    *   Create subdirectories: `docs/commands/`, `docs/concepts/`, `docs/tutorials/`, `docs/_includes/` (for potential shared snippets), `docs/assets/` (for images).
+    *   Create initial placeholder `docs/index.md` (main landing page) and placeholder index files for categories (e.g., `docs/identity.md`).
+
+---
+
+## ⚙️ Phase 2: Core Content - Command Enrichment & Reference Pages (Category-Based Batching)
+
+*Goal: Enrich the JSON index and create detailed Markdown reference pages for all commands, grouped by category for clarity and review efficiency.*
+
+**[x] Ticket 2.1: Wallet Batch 1**
+    * Enrich JSON index and create Markdown reference pages for:
+      z_viewtransaction, z_shieldcoinbase, z_setmigration, z_sendmany, z_mergetoaddress, z_listunspent, z_listreceivedbyaddress, z_listoperationids, z_listaddresses, z_importwallet, z_importviewingkey, z_importkey, z_gettotalbalance, z_getoperationstatus, z_getoperationresult, z_getnewaddress, z_getmigrationstatus, z_generateencryptionkey, z_getbalance, z_exportwallet, z_exportviewingkey, z_exportkey, settxfee, setaccount, sendtoaddress, sendmany
+
+**[x] Ticket 2.2: Wallet Batch 2**
+    * Enrich JSON index and create Markdown reference pages for:
+      sendfrom, resendwallettransactions, rescanfromheight, prunespentwallettransactions, move, lockunspent, listunspent, listtransactions, listsinceblock, listreceivedbyaddress, listreceivedbyaccount, listlockunspent, listaddressgroupings, listaccounts, keypoolrefill, importwallet, importprivkey, importaddress, getwalletinfo, getunconfirmedbalance, gettransaction, getreceivedbyaddress, getreceivedbyaccount, getrawchangeaddress, getnewaddress, getcurrencybalance, getbalance, getaddressesbyaccount, getaccountaddress, getaccount, encryptwallet, dumpwallet, dumpprivkey, backupwallet, addmultisigaddress, z_validateaddress, validateaddress
+
+**[x] Ticket 2.3: Raw Transactions**
+    * Enrich JSON index and create Markdown reference pages for:
+      zcsamplejoinsplit, zcrawreceive, zcrawkeygen, zcrawjoinsplit, signrawtransaction, sendrawtransaction, getrawtransaction, fundrawtransaction, decodescript, decoderawtransaction, createrawtransaction
+
+**[x] Ticket 2.4: Util**
+    * Enrich JSON index and create Markdown reference pages for:
+      zcbenchmark, decryptdata, convertpassphrase, addmultisigaddress, z_validateaddress, validateaddress, createmultisig, estimatepriority, estimatefee
+
+**[x] Ticket 2.5: Blockchain**
+    * Enrich JSON index and create Markdown reference pages for:
+      gettransaction, reconsiderblock, invalidateblock, estimatepriority, estimatefee, getrawtransaction, submitmergedblock
+
+**[x] Ticket 2.6: Network**
+    * Enrich JSON index and create Markdown reference pages for:
+      setban, ping, listbanned, getpeerinfo, getnetworkinfo, getnettotals, getconnectioncount, getaddednodeinfo, disconnectnode, clearbanned, addnode
+
+**[x] Ticket 2.7: Jumblr**
+    * Enrich JSON index and create Markdown reference pages for:
+      jumblr_secret, jumblr_resume, jumblr_pause, jumblr_deposit
+
+**[x] Ticket 2.8: VDXF**
+    * Enrich JSON index and create Markdown reference page for:
+      getvdxfid
+
+**[x] Ticket 2.9: Mining & Staking**
+    * Enrich JSON index and create Markdown reference page for:
+      submitmergedblock
+
+**[x] Ticket 2.10: Control**
+    * Enrich JSON index and create Markdown reference page for:
+      getdeprecationinfo
+
+**[x] Ticket 2.11: Currency**
+    * Enrich JSON index and create Markdown reference page for:
+      getcurrencybalance
+
+---
+
+## 💡 Phase 3: Conceptual & Foundational Content (Corresponds to PRD Milestone 3)
+
+*Goal: Provide context and understanding of core Verus concepts accessible via the CLI.*
+
+**[ ] Ticket 3.1: Write "Getting Started" Guide**
+    *   Target Audience: Newcomers.
+    *   Content: CLI installation, basic `verusd` setup, running first commands (e.g., `getinfo`, `getblockcount`), wallet basics (`getnewaddress`, `z_getnewaddress`).
+    *   Output: `docs/getting-started.md`.
+
+**[ ] Ticket 3.2: Write Core Concept Guide - VerusID**
+    *   Content: Explain what VerusIDs are, their structure (name@, i-address), key concepts (primary/revocation/recovery authorities), and link to relevant commands (`getidentity`, `registernamecommitment`, `registeridentity`, `updateidentity`, etc.).
+    *   Output: `docs/concepts/verusid.md`.
+
+**[ ] Ticket 3.3: Write Core Concept Guide - Currencies & DeFi**
+    *   Content: Explain Verus PBaaS, tokens vs. native currencies, fractional currencies, conversions, liquidity pools, and link to relevant commands (`definecurrency`, `getcurrency`, `sendcurrency` with conversion, `getcurrencyconverters`, etc.).
+    *   Output: `docs/concepts/currencies-defi.md`.
+
+**[ ] Ticket 3.4: Write Core Concept Guide - Blockchain & Networking**
+    *   Content: Explain basic blockchain interactions, blocks, transactions, networking concepts relevant to CLI use, and link to commands (`getblock`, `getblockhash`, `getblockchaininfo`, `getpeerinfo`, `addnode`, etc.).
+    *   Output: `docs/concepts/blockchain-networking.md`.
+
+**[ ] Ticket 3.5: Write Core Concept Guide - Mining & Staking**
+    *   Content: Explain Verus PoP, mining vs. staking setup via CLI, rewards, and link to commands (`setgenerate`, `getmininginfo`, `

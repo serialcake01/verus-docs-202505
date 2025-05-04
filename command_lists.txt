@@ -1,0 +1,531 @@
+## All Commands from 00_list_verus_help.txt
+
+1. MoMoMdata
+2. addmergedblock
+3. addmultisigaddress
+4. addnode
+5. assetchainproof
+6. backupwallet
+7. calc_MoM
+8. clearbanned
+9. clearrawmempool
+10. closeoffers
+11. coinsupply
+12. convertpassphrase
+13. createrawtransaction
+14. createmultisig
+15. decryptdata
+16. decodeerawtransaction
+17. decodescript
+18. definecurrency
+19. disconnectnode
+20. dumpprivkey
+21. dumpwallet
+22. encryptwallet
+23. estimateconversion
+24. estimatefee
+25. estimatepriority
+26. fundrawtransaction
+27. generate
+28. getNotarisationsForBlock
+29. getaccount
+30. getaccountaddress
+31. getaddednodeinfo
+32. getaddressbalance
+33. getaddressesbyaccount
+34. getaddressdeltas
+35. getaddressmempool
+36. getaddresstxids
+37. getaddressutxos
+38. getbalance
+39. getbestblockhash
+40. getbestproofroot
+41. getblock
+42. getblockchaininfo
+43. getblockcount
+44. getblockdeltas
+45. getblockhash
+46. getblockhashes
+47. getblockheader
+48. getblocksubsidy
+49. getblocktemplate
+50. getchaintips
+51. getchaintxstats
+52. getconnectioncount
+53. getcurrency
+54. getcurrencybalance
+55. getcurrencyconverters
+56. getcurrencystate
+57. getcurrencytrust
+58. getdeprecationinfo
+59. getdifficulty
+60. getexports
+61. getgenerate
+62. getidentitieswithaddress
+63. getidentitieswithrecovery
+64. getidentitieswithrevocation
+65. getidentity
+66. getidentitycontent
+67. getidentityhistory
+68. getidentitytrust
+69. getinfo
+70. getimports
+71. getinitialcurrencystate
+72. getlastimportfrom
+73. getlaunchinfo
+74. getlocalsolps
+75. getmempoolinfo
+76. getminingdistribution
+77. getmininginfo
+78. getnettotals
+79. getnetworkhashps
+80. getnetworkinfo
+81. getnetworksolps
+82. getnewaddress
+83. getnotarizationdata
+84. getnotarizationproofs
+85. getoffers
+86. getpeerinfo
+87. getpendingtransfers
+88. getrawchangeaddress
+89. getrawmempool
+90. getrawtransaction
+91. getreceivedbyaccount
+92. getreceivedbyaddress
+93. getreservedeposits
+94. getsaplingtree
+95. getsnapshot
+96. getspentinfo
+97. gettransaction
+98. gettxout
+99. gettxoutproof
+100. gettxoutsetinfo
+101. getunconfirmedbalance
+102. getvdxfid
+103. getwalletinfo
+104. height_MoM
+105. help
+106. importaddress
+107. importprivkey
+108. importwallet
+109. invalidateblock
+110. jumblr_deposit
+111. jumblr_pause
+112. jumblr_resume
+113. jumblr_secret
+114. keypoolrefill
+115. kvsearch
+116. kvupdate
+117. listaccounts
+118. listaddressgroupings
+119. listbanned
+120. listcurrencies
+121. listidentities
+122. listlockunspent
+123. listopenoffers
+124. listreceivedbyaccount
+125. listreceivedbyaddress
+126. listsinceblock
+127. listtransactions
+128. listunspent
+129. lockunspent
+130. makeoffer
+131. migrate_completeimporttransaction
+132. migrate_converttoexport
+133. migrate_createimporttransaction
+134. minerids
+135. move
+136. notaries
+137. ping
+138. prioritisetransaction
+139. processupgradedata
+140. prunespentwallettransactions
+141. reconsiderblock
+142. recoveridentity
+143. refundfailedlaunch
+144. registeridentity
+145. registernamecommitment
+146. rescanfromheight
+147. resendwallettransactions
+148. revokeidentity
+149. scanNotarisationsDB
+150. sendcurrency
+151. sendfrom
+152. sendmany
+153. sendrawtransaction
+154. sendtoaddress
+155. setaccount
+156. setban
+157. setcurrencytrust
+158. setgenerate
+159. setidentitytimelock
+160. setidentitytrust
+161. setminingdistribution
+162. settxfee
+163. signdata
+164. signfile
+165. signmessage
+166. signrawtransaction
+167. stop
+168. submitacceptednotarization
+169. submitblock
+170. submitchallenges
+171. submitimports
+172. submitmergedblock
+173. takeoffer
+174. updateidentity
+175. validateaddress
+176. verifychain
+177. verifyfile
+178. verifyhash
+179. verifymessage
+180. verifysignature
+181. verifytxoutproof
+182. z_exportkey
+183. z_exportviewingkey
+184. z_exportwallet
+185. z_generateencryptionkey
+186. z_getbalance
+187. z_getmigrationstatus
+188. z_getnewaddress
+189. z_getoperationresult
+190. z_getoperationstatus
+191. z_getpaymentdisclosure
+192. z_gettotalbalance
+193. z_gettreestate
+194. z_importkey
+195. z_importviewingkey
+196. z_importwallet
+197. z_listaddresses
+198. z_listoperationids
+199. z_listreceivedbyaddress
+200. z_listunspent
+201. z_mergetoaddress
+202. z_sendmany
+203. z_setmigration
+204. z_shieldcoinbase
+205. z_validateaddress
+206. z_validatepaymentdisclosure
+207. z_viewtransaction
+208. zcbenchmark
+209. zcrawjoinsplit
+210. zcrawkeygen
+211. zcrawreceive
+212. zcsamplejoinsplit
+
+## Commands with Help Text Files (_verus_help_outputs/*.txt)
+
+1. zcsamplejoinsplit
+2. zcrawreceive
+3. zcrawkeygen
+4. zcrawjoinsplit
+5. zcbenchmark
+6. z_viewtransaction
+7. z_shieldcoinbase
+8. z_setmigration
+9. z_sendmany
+10. z_mergetoaddress
+11. z_listunspent
+12. z_listreceivedbyaddress
+13. z_listoperationids
+14. z_listaddresses
+15. z_importwallet
+16. z_importviewingkey
+17. z_importkey
+18. z_gettotalbalance
+19. z_getoperationstatus
+20. z_getoperationresult
+21. z_getnewaddress
+22. z_getmigrationstatus
+23. z_generateencryptionkey
+24. z_getbalance
+25. z_exportwallet
+26. z_exportviewingkey
+27. z_exportkey
+28. settxfee
+29. setaccount
+30. sendtoaddress
+31. sendmany
+32. sendfrom
+33. resendwallettransactions
+34. rescanfromheight
+35. prunespentwallettransactions
+36. move
+37. lockunspent
+38. listunspent
+39. listtransactions
+40. listsinceblock
+41. listreceivedbyaddress
+42. listreceivedbyaccount
+43. listlockunspent
+44. listaddressgroupings
+45. listaccounts
+46. keypoolrefill
+47. importwallet
+48. importprivkey
+49. importaddress
+50. getwalletinfo
+51. getunconfirmedbalance
+52. gettransaction
+53. getreceivedbyaddress
+54. getreceivedbyaccount
+55. getrawchangeaddress
+56. getnewaddress
+57. getcurrencybalance
+58. getbalance
+59. getaddressesbyaccount
+60. getaccountaddress
+61. getaccount
+62. encryptwallet
+63. dumpwallet
+64. dumpprivkey
+65. decryptdata
+66. convertpassphrase
+67. backupwallet
+68. addmultisigaddress
+69. getvdxfid
+70. z_validateaddress
+71. validateaddress
+72. reconsiderblock
+73. jumblr_secret
+74. jumblr_resume
+75. jumblr_pause
+76. jumblr_deposit
+77. invalidateblock
+78. estimatepriority
+79. estimatefee
+80. createmultisig
+81. signrawtransaction
+82. sendrawtransaction
+83. getrawtransaction
+84. fundrawtransaction
+85. decodescript
+86. decoderawtransaction
+87. createrawtransaction
+88. setban
+89. ping
+90. listbanned
+91. getpeerinfo
+92. getnetworkinfo
+93. getnettotals
+94. getdeprecationinfo
+95. getconnectioncount
+96. getaddednodeinfo
+97. disconnectnode
+98. clearbanned
+99. addnode
+
+## Commands with Markdown Files (docs/commands/*.md)
+
+1. getcurrencybalance
+2. getdeprecationinfo
+3. getvdxfid
+4. submitmergedblock
+5. jumblr_deposit
+6. jumblr_pause
+7. jumblr_resume
+8. jumblr_secret
+9. addnode
+10. clearbanned
+11. disconnectnode
+12. getaddednodeinfo
+13. getconnectioncount
+14. getnettotals
+15. getnetworkinfo
+16. listbanned
+17. ping
+18. setban
+19. getpeerinfo
+20. estimatepriority
+21. gettransaction
+22. getrawtransaction
+23. estimatefee
+24. invalidateblock
+25. reconsiderblock
+26. convertpassphrase
+27. createmultisig
+28. decryptdata
+29. zcbenchmark
+30. rescanfromheight
+31. sendfrom
+32. prunespentwallettransactions
+33. resendwallettransactions
+34. zcrawkeygen
+35. zcrawpour
+36. zcrawjoinsplit
+37. zcrawreceive
+38. listtransactions
+39. listunspent
+40. lockunspent
+41. validateaddress
+42. z_validateaddress
+43. addmultisigaddress
+44. backupwallet
+45. dumpprivkey
+46. dumpwallet
+47. getaccount
+48. encryptwallet
+49. getaccountaddress
+50. getaddressesbyaccount
+51. getbalance
+52. getnewaddress
+53. getrawchangeaddress
+54. getreceivedbyaccount
+55. getreceivedbyaddress
+56. getunconfirmedbalance
+57. getwalletinfo
+58. importaddress
+59. importprivkey
+60. importwallet
+61. listaddressgroupings
+62. keypoolrefill
+63. listaccounts
+64. listlockunspent
+65. listreceivedbyaccount
+66. listreceivedbyaddress
+67. listsinceblock
+68. move
+69. sendrawtransaction
+70. createrawtransaction
+71. signrawtransaction
+72. fundrawtransaction
+73. decodescript
+74. decoderawtransaction
+75. z_exportkey
+76. z_exportviewingkey
+77. z_exportwallet
+78. z_getbalance
+79. z_getmigrationstatus
+80. z_getnewaddress
+81. z_getoperationresult
+82. z_getoperationstatus
+83. z_importkey
+84. z_listaddresses
+85. z_listoperationids
+86. z_generateencryptionkey
+87. z_gettotalbalance
+88. z_importviewingkey
+89. z_importwallet
+90. z_listreceivedbyaddress
+91. z_listunspent
+92. z_mergetoaddress
+93. z_setmigration
+94. z_sendmany
+95. z_shieldcoinbase
+96. z_viewtransaction
+
+
+## Commands without help text
+
+MoMoMdata
+addmergedblock
+assetchainproof
+calc_MoM
+clearrawmempool
+closeoffers
+coinsupply
+definecurrency
+estimateconversion
+generate
+getNotarisationsForBlock
+getaddressbalance
+getaddressdeltas
+getaddressmempool
+getaddresstxids
+getaddressutxos
+getbestblockhash
+getbestproofroot
+getblock
+getblockchaininfo
+getblockcount
+getblockdeltas
+getblockhash
+getblockhashes
+getblockheader
+getblocksubsidy
+getblocktemplate
+getchaintips
+getchaintxstats
+getcurrency
+getcurrencyconverters
+getcurrencystate
+getcurrencytrust
+getdifficulty
+getexports
+getgenerate
+getidentitieswithaddress
+getidentitieswithrecovery
+getidentitieswithrevocation
+getidentity
+getidentitycontent
+getidentityhistory
+getidentitytrust
+getinfo
+getimports
+getinitialcurrencystate
+getlastimportfrom
+getlaunchinfo
+getlocalsolps
+getmempoolinfo
+getminingdistribution
+getmininginfo
+getnetworkhashps
+getnetworksolps
+getnotarizationdata
+getnotarizationproofs
+getoffers
+getpendingtransfers
+getrawmempool
+getreservedeposits
+getsaplingtree
+getsnapshot
+getspentinfo
+gettxout
+gettxoutproof
+gettxoutsetinfo
+height_MoM
+help
+kvsearch
+kvupdate
+listcurrencies
+listidentities
+listopenoffers
+makeoffer
+migrate_completeimporttransaction
+migrate_converttoexport
+migrate_createimporttransaction
+minerids
+notaries
+prioritisetransaction
+processupgradedata
+recoveridentity
+refundfailedlaunch
+registeridentity
+registernamecommitment
+revokeidentity
+scanNotarisationsDB
+sendcurrency
+setcurrencytrust
+setgenerate
+setidentitytimelock
+setidentitytrust
+setminingdistribution
+signdata
+signfile
+signmessage
+stop
+submitacceptednotarization
+submitblock
+submitchallenges
+submitimports
+takeoffer
+updateidentity
+verifychain
+verifyfile
+verifyhash
+verifymessage
+verifysignature
+verifytxoutproof
+z_getpaymentdisclosure
+z_gettreestate
+z_validatepaymentdisclosure
