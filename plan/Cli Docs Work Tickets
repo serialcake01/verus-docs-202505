@@ -94,7 +94,7 @@
     *   Output: `docs/getting-started.md`.
 
 **[ ] Ticket 3.2: Write Core Concept Guide - VerusID**
-    *   Content: Explain what VerusIDs are, their structure (name@, i-address), key concepts (primary/revocation/recovery authorities), and link to relevant commands (`getidentity`, `registernamecommitment`, `registeridentity`, `updateidentity`, etc.).
+    *   Content: Explain what VerusIDs are, their structure (name@, i-address), key concepts (primary/revocation/recovery authorities), and link to relevant commands
     *   Output: `docs/concepts/verusid.md`.
 
 **[ ] Ticket 3.3: Write Core Concept Guide - Currencies & DeFi**
